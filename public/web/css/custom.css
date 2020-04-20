@@ -1,0 +1,144 @@
+.HGS h1:before {
+    content: "";
+    position: absolute;
+    bottom: 35px;
+    width: 80px;
+    height: 2px;
+    background: #f1c40f;
+}
+.footmail a {
+	color: #c0bcbc;
+}
+.course-desc p {
+	margin-bottom: 0;
+	float: left;
+	width: auto;
+}
+.course-desc p:before {
+	content: "\f111";
+    font-family: fontawesome;
+    float: left;
+    top: 0;
+    position: relative;
+    color: gray;
+    padding-right: 10px;
+    transition: all .4s ease 0s;
+    margin-left: 10px;
+    font-size: 7px;
+}
+.faq-style1-sec .panel-heading {
+	border-bottom: 1px solid #eee;
+}
+.faq-style1-sec .panel-heading .panel-title {
+	    padding-bottom: 5px;
+}
+.event-sec a.about-btn {
+    background: #f6c405 none repeat scroll 0 0;
+    border-radius: 0;
+    color: #011e40;
+    float: right;
+    font-weight: 700;
+    padding: 14px 36px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    position: relative;
+}
+.login-form{
+    border: 1px solid #bbb;
+    padding: 20px;
+    background: #f5f5f5;
+    margin-top: 0px!important;
+}
+.login-form h2 {
+    border-bottom: 1px solid #aaa;
+    padding: 10px 0 3px;
+    line-height: 1;
+}
+.login-form h2 span {
+    font-size: 12px;
+    color: #777;
+    font-style: italic;
+    font-weight: 300
+}
+.main-menu ul li a.topcat i {
+    margin-left: 1px;
+    color: #333;
+    font-weight: 300;
+}
+.main-menu ul li a.topcat:hover i {
+    transform: rotate(-180deg);
+    transition: .2s ease-in-out;
+}
+/*==================== CHAPTER ====================*/
+.chapter table {
+    margin-bottom: 0;
+}
+.chapter table th {
+    background: #333;
+    color: #f0c61d;
+}
+.chapter table th.number {
+    width: 10%
+}
+.chapter table th.name {
+    width: 40%
+}
+.chapter table th.action {
+    text-align: center;
+}
+.inner-HGS h1 {
+    border-left: 3px solid #f1c40f;
+    padding-left: 20px;
+}
+.chapter table tbody tr td.action {
+    text-align: center;
+}
+.chapter table tbody tr td.action button {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.chapter table tbody tr td.action i{
+    margin-right: 10px
+}
+.chapter.faq-style1-sec .panel-group .panel .panel-title a:after {
+    content: "\f103";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 3%;
+    font-weight: 300;
+}
+.chapter.faq-style1-sec .panel-group .panel .panel-title a {
+    color: #011e40;
+    padding: 7px 15px;
+}
+.chapter.faq-style1-sec .panel-heading .panel-title {
+    padding-bottom: 0px;
+}
+.chapter.faq-style1-sec .panel-group .panel .panel-title a[aria-expanded="true"]:after {
+    transform: rotate(-180deg);
+    transition: .5s ease-in-out;
+}
+.chapter.faq-style1-sec .panel-group .panel .panel-title a[aria-expanded="true"] {
+    background: #f0c61b;
+}
+.chapter.faq-style1-sec .panel-content {
+    padding: 0 10px;
+}
+.chapter.faq-style1-sec .panel-heading {
+    margin-bottom: 0px;
+}
+.chapter.faq-style1-sec .panel-collapse.collapse.in {
+    border: 1px solid #eee;
+    padding: 15px 5px 5px;
+    border-radius: 0 0 5px 5px;
+    border-top: 0;
+}
+.material .research-item .research-thumb a h1 {
+    padding: 40px 0;
+    text-align: center;
+}
+.material .research-item .media {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.51);
+    margin-bottom: 30px;
+    background: #f1c410;
+}
