@@ -25,11 +25,85 @@
                         <div class="footer-widget-menu">
                             <h2>Courses Offered</h2>
                             <ul>
+                                 @auth('user')
+                                            @if(!empty($header_data['class_data']))
+                                                @php
+                                                $class_course = $header_data['class_data'];
+                                                @endphp
+                                                <ul>
+                                                    <li>
+                                                        
+                                                        @if($class_course->stream_type_id ==2)
+                                                            @if($class_course->class_status==1 or $class_course->stream_status==1)
+                                                            <a disabled>
+                                                            {{ $class_course->class_name }} (disabled by admin)
+                                                          </a>
+                                                   
+                                                            
+                                                          @else
+                                                          <a href="{{route('web.show_all_subjects',['id'=>$class_course->class_id,'stream_id'=>$class_course->stream_id,'stream_type_id'=>$class_course->stream_type_id])}}">
+                                                                {{ $class_course->class_name }}
+                                                            </a>
+                                                          
+                                                            
+                                                          @endif
+                                                        @else
+                                                        @if($class_course->class_status==2)
+
+                                                        <a href="{{route('web.show_all_subjects_for_non_stream',['id'=>$class_course->class_id])}}">
+                                                                {{ $class_course->class_name }}
+                                                            </a>
+                                                        @else
+                                                         <a disabled>
+                                                            {{ $class_course->class_name }} (disabled by admin)
+                                                          </a>
+
+
+                                                          
+                                                        @endif
+                                                        @endif
+                                                    </li>
+                                                </ul>
+                                            @endif
+                                        @else
+                                        <ul>
+                                            @php
+                                              $class_course = $header_data['class_data'];
+                                            @endphp
+                                            @foreach($class_course as $key => $item)
+                                            <li>
+                                                @if($item->stream_type=2)
+                                                   @if($item->status==2)
+                                                <a href="{{route('web.login')}}">
+                                                    {{ $item->class_name }}
+                                                </a>
+                                                    @else
+                                                        <a disabled>
+                                                            {{ $item->class_name }} (disabled by admin)
+                                                            </a>
+                                                    @endif
+                                                @else
+                                                    @if($item->status==2)
+                                                      <a href="{{route('web.login')}}">
+                                                    {{ $item->class_name }}
+                                                      </a>
+                                                      @else
+                                                       <a disabled>
+                                                            {{ $item->class_name }} (disabled by admin)
+                                                            </a>
+                                                    @endif
+
+                                                  
+                                                @endif
+                                            </li>
+                                            @endforeach
+                                           
+                                        </ul>
+                                        
+                                        @endauth
                                 
-                                <li><a href="#">Class IX</a></li>
-                                <li><a href="#">Class X</a></li>
-                                <li><a href="#">Class XI</a></li>
-                                <li><a href="#">Class XII</a></li>
+                                
+                                
 
                             </ul>
                         </div>

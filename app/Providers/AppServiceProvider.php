@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('web.include.header', function ($view) {
+        View::composer(['web.include.header','web.include.footer'], function ($view) {
 
             /** Class Data Items **/
             $class_data = "";
