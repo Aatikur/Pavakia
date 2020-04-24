@@ -461,7 +461,7 @@
 		                        </div>
 		                    </div>
 		                    <div>
-		                        <a href="#" class="about-btn">More Achievement</a>
+		                        <a href="{{route('web.acheivement.acheivement')}}" class="about-btn">More Achievement</a>
 		                    </div>
 		                </div>
 

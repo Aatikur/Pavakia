@@ -266,7 +266,12 @@ public function updateUserDetails(Request $request,$id){
 
  }
    $record=DB::table('users')->where('id',$id)->first();
+    if($record->image!=null){
+            File::delete(public_path('admin/profile/'.$record->image));
+         }
+   
    if($request->hasFile('file')) {
+   
             $image = $request->file('file');
             $file = microtime().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/admin/profile');
@@ -274,7 +279,8 @@ public function updateUserDetails(Request $request,$id){
             $img->save($destinationPath.'/'.$file);
 
   }
-  if($request['stream_name_id']==null and $request['stream_type_id']==null){
+
+  if($request['stream_name_id']==null and $request['stream_type_id']==null and $request['file']=null){
     $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
@@ -288,7 +294,7 @@ public function updateUserDetails(Request $request,$id){
              'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
-             'image'=>$file,
+             'image'=>$record->image,
            ]);
   }
   else{
@@ -306,7 +312,7 @@ public function updateUserDetails(Request $request,$id){
              'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
              'stream_id'=>$request['stream_name_id'],
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
-             'image'=>$file,
+             'image'=>$file?$file:$record->image,
 
 
 
@@ -316,7 +322,7 @@ public function updateUserDetails(Request $request,$id){
             
         ]);
         }
-
+     
           $msg = "Details updated successfully";
        
           
