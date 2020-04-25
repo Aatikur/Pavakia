@@ -212,7 +212,7 @@ class SubjectController extends Controller
             $subject_record = DB::table('subjects')
                         ->where('class_id',$request->input('class_id'))
                         ->get();
-            $data = "<option value=\"\" disabled selected>Choose Subject</option>";
+            $data = "<option value=\"\" disabled selected>Choose Stream</option>";
             foreach($stream_record as $key=>$value)
                 $data = $data."<option value=\"".$value->id."\">".ucwords($value->stream)."</option>";
                            
@@ -280,13 +280,16 @@ class SubjectController extends Controller
      
         $chapter_record = DB::table('chapter')
                            ->where('id',$request->input('chapter_no_id'))
-                           ->get();
-
-                           
-        $data = "<option value=\"\" disabled selected>Choose Chapter Name</option>";
-        foreach($chapter_record as $key=>$value)
-             $data = $data."<option value=\"".$value->id."\">".ucwords($value->chapter_name)."</option>";
+                           ->first();
+        
+        
+             $data = "<input type=text class=form-control col-md-7 col-xs-12 disabled value=\"".$chapter_record->chapter_name."\">";
         print $data;
+                           
+        // $data = "<option value=\"\" disabled selected>Choose Chapter Name</option>";
+        // foreach($chapter_record as $key=>$value)
+        //      $data = $data."<option value=\"".$value->id."\">".ucwords($value->chapter_name)."</option>";
+        // print $data;
     }
 
 }

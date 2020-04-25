@@ -314,7 +314,7 @@ $(document).ready(function(){
 
                 
                 
-                $('#chapter_name_id').html(response);
+                $('#chapter_name_id').replaceWith(response);
 
             }
         }); 
