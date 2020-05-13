@@ -72,7 +72,7 @@
               <div>
                 <button type="submit" class="btn btn-default submit form-text-element">Update Password</button>
               </div>
-             
+              <h5><a href="{{route('admin.login')}}">Back To Login</a></h5>
               <div class="clearfix"></div>
        
               <div class="separator">
