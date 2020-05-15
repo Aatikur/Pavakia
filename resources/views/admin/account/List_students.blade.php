@@ -78,14 +78,15 @@
                           <td>{{$value->class_name}}</td>
                           <td>{{$value->mobile}}</td>
                           <td>
+                            <a href="{{route('admin.view_all_details',['id'=>$value->id])}}" class="btn btn-success form-text-element">View </a>
                           @if($value->status == 2)
                               <a href="{{route('admin.disable_student_account',['id'=>$value->id])}}" class="btn btn-danger form-text-element">Disable</a>
                           @else
                               <a href="{{route('admin.enable_student_account',['id'=>$value->id])}}" class="btn btn-success form-text-element">Enable</a>
                           @endif
-                          <a  onclick="return confirm('Are You Sure Want To Delete?')"  href="{{route('admin.delete_account',['id'=>$value->id])}}" class="btn btn-danger form-text-element">Delete Account</a>
+                          <a  onclick="return confirm('Are You Sure Want To Delete?')"  href="{{route('admin.delete_account',['id'=>$value->id])}}" class="btn btn-danger form-text-element">Delete</a>
                          {{--  <a href="{{route('admin.reset_password_form',['id'=>$value->id])}}" class="btn btn-success form-text-element">Change Password</a> --}}
-                          <a href="{{route('admin.edit_details_form',['id'=>$value->id])}}" class="btn btn-success form-text-element">Edit Details</a>
+                          <a href="{{route('admin.edit_details_form',['id'=>$value->id])}}" class="btn btn-success form-text-element">Edit </a>
                         </td>
                         </tr>
                         

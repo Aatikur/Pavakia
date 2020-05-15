@@ -61,7 +61,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">Phone No <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="mobile"  class="form-control col-md-7 col-xs-12"  name="mobile">
+                          <input type="number" id="mobile"  class="form-control col-md-7 col-xs-12"  value={{$user_record->mobile}} name="mobile">
                         </div>
                          @error('mobile')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -72,12 +72,17 @@
 
                       
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream Type</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream Type<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                            <select id="stream_type_id" class="form-control col-md-7 col-xs-12" name="stream_type_id">
-                               <option selected disabled value="">Choose Stream Type</option>
-                               <option value="2">Stream</option>
-                               <option value="1">No Stream</option>
+                               
+                               @if($user_record->stream==null)
+                               <option value="2" >Stream</option>
+                               <option value="1" selected>No Stream</option>
+                               @else
+                               <option value="1" >No Stream</option>
+                               <option value="2" selected>Stream</option>
+                               @endif
                              </select>
                             @error('stream_type_id')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -85,10 +90,10 @@
                         </div>
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select class</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select class<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                          <select id="class_id" name="class_id" class="form-control col-md-7 col-xs-12">
-                          <option selected disabled value="">Choose Class</option>
+                          <option selected disabled value="">{{$user_record->class_name}}</option>
                          </select>
                              @error('class_id')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -96,10 +101,10 @@
                         </div>
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                            <select id="stream_name_id" name="stream_name_id" class="form-control col-md-7 col-xs-12">
-                                <option selected disabled value="">Choose Stream Name</option>
+                                <option selected disabled value="">{{$user_record->stream}}</option>
                             </select>
                             @error('stream_name_id')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -130,7 +135,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="address" value="{{ $user_record->address }}" name="address"></textarea>
+                          <textarea id="address"  name="address">{{ $user_record->address }}</textarea>
 
                            @error('address')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -148,7 +153,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">Image<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">Image</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="file" id="file"  class="form-control col-md-7 col-xs-12" autocomplete="off" name="file">
@@ -158,11 +163,16 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div id="gender" class="btn-group" data-toggle="buttons">
-                            <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                            <input type="radio" name="gender" value="female"> Female
+                            @if($user_record->gender=='male')
+                            <input type="radio" name="gender" checked value="male"> &nbsp; Male &nbsp;
+                             <input type="radio" name="gender" value="female"> &nbsp; Female &nbsp;
+                            @else
+                            <input type="radio" name="gender" selected value="female">&nbsp; Female &nbsp;
+                            <input type="radio" name="male"  value="male"> &nbsp; Male &nbsp;
+                            @endif  
                               @error('gender')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
                               @enderror
@@ -173,7 +183,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="birthday" type="date" name="dob" class="date-picker form-control col-md-7 col-xs-12"  type="text">
+                          <input id="birthday" type="date" name="dob" class="date-picker form-control col-md-7 col-xs-12" value="{{ $user_record->dob }}" type="text">
                         </div>
                           @error('dob')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>

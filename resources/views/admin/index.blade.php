@@ -46,7 +46,7 @@
               <div>
                 <button type="submit" class="btn btn-default submit form-text-element">Log in</button>
               </div>
-              <h5><a href="{{route('admin.show_change_password_form')}}">Change Password?</a></h5>
+             
               <div class="clearfix"></div>
        
               <div class="separator">

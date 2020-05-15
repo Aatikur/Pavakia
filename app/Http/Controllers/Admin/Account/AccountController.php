@@ -23,7 +23,23 @@ class AccountController extends Controller
       return view('admin.account.show_create_account_form',['class_record'=>$class_record,'stream_record'=>$stream_record]);
     }
     public function createAccount(Request $request){
-        $file='';
+      $file='';
+       $count = DB::table('users')
+            ->where('email', strtolower($request->input('email')))
+            ->count();
+      $counttwo = DB::table('users')
+            ->where('mobile', $request->input('mobile'))
+            ->count();
+
+        if ($count> 0){
+          $msg ="User already registered";
+
+        }
+        else{
+        if($counttwo>0){
+          $msg ="mobile number already registered";
+        }
+        else{
         if($request['stream_type_id']=="2"){
            $request->validate([
 
@@ -62,7 +78,7 @@ class AccountController extends Controller
            'retype_password'=>'required|min:6',
             ]);
          }
-
+     
 
         
         
@@ -107,15 +123,8 @@ class AccountController extends Controller
             $img = Image::make($image->getRealPath());
             $img->save($destinationPath.'/'.$file);
         }
-       $count = DB::table('users')
-            ->where('email', strtolower($request->input('email')))
-            ->count();
+       
 
-        if ($count> 0){
-          $msg ="User already registered";
-
-        }
-        else{
         
         
          $user = DB::table('users')->insert([
@@ -140,13 +149,13 @@ class AccountController extends Controller
         ]);
           $msg = "User created successfully and credentials have been  sent";
        }
-         
-       
+      }
+       }
 
       
       return redirect()->back()->with('msg',$msg);
 
-    }
+    
   }
 
   public function ListAllStudents(){
@@ -184,10 +193,10 @@ public function deleteStudentAccount($id){
   return redirect()->back();
 }
 
-public function resetPasswordForm($id){
+// public function resetPasswordForm($id){
 
-  return view('admin.account.change_password_form',['id'=>$id]);
-}
+//   return view('admin.account.change_password_form',['id'=>$id]);
+// }
 
 // public function resetPassword(Request $request,$id){
 
@@ -241,9 +250,28 @@ public function resetPasswordForm($id){
 //   return redirect()->back()->with('msg',$msg);
 // }
 // }
+public function showAllDetails($id){
+   $user_record = DB::table('users')
+                        ->leftjoin('class','users.class_id','=','class.id')
+                        ->leftjoin('stream_type','users.stream_id','=','stream_type.id')
+                        ->select('users.*','class.class_name','stream_type.stream')
+                        ->where('users.id',$id)
+                        ->first();
 
+  
+  return view('admin.account.view_all_details',compact('user_record'));
+
+
+}
 public function editDetailsForm($id){
-  $user_record = DB::table('users')->where('id',$id)->first();
+  $user_record = DB::table('users')
+                        ->leftjoin('class','users.class_id','=','class.id')
+                        ->leftjoin('stream_type','users.stream_id','=','stream_type.id')
+                        ->select('users.*','class.class_name','stream_type.stream')
+                        ->where('users.id',$id)
+                        ->first();
+
+
   
   return view('admin.account.show_edit_details_form',compact('user_record'));
 
@@ -251,24 +279,31 @@ public function editDetailsForm($id){
 }
 
 public function updateUserDetails(Request $request,$id){
+  $msg='';
    $file='';
-    if($request['stream_name_id']==null and $request['stream_type_id']==null){
-   $request->validate(['file'=>'image|mimes:jpeg,png,jpg',
-                        
-                     ]);
- }else{
-   $request->validate(['file'=>'image|mimes:jpeg,png,jpg',
-                      'class_id'=>'required|'
-                        
-                     ]);
-
-
-
- }
+   
    $record=DB::table('users')->where('id',$id)->first();
-    if($record->image!=null){
+   $count = DB::table('users')->where('mobile',$request['mobile'])->get();
+   if($record->mobile==$request['mobile'])
+   {
+    DB::table('users')
+    ->where('id',$id)
+    ->update(['mobile'=>$request['mobile']
+   ]);
+ }
+ else{
+
+  if($count>0){
+    $msg = 'mobile already registered with other account';
+  }
+  else{
+     $user = DB::table('users')->where('id',$id)->update(['mobile'=>$request['mobile']]);
+   }
+ }
+ 
+    if($request->hasFile('file')){
             File::delete(public_path('admin/profile/'.$record->image));
-         }
+    }
    
    if($request->hasFile('file')) {
    
@@ -279,9 +314,7 @@ public function updateUserDetails(Request $request,$id){
             $img->save($destinationPath.'/'.$file);
 
   }
-
-  if($request['stream_name_id']==null and $request['stream_type_id']==null and $request['file']=null){
-    $user = DB::table('users')->where('id',$id)->update([
+     $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
              'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
@@ -291,39 +324,24 @@ public function updateUserDetails(Request $request,$id){
              'address'=>$request['address']?$request['address']:$record->address,
              'pin'=>$request['pin']?$request['pin']:$record->pin,
              'gender'=>$request['gender'],
-             'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
-             'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
-             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
-             'image'=>$record->image,
-           ]);
-  }
-  else{
-
-            $user = DB::table('users')->where('id',$id)->update([
-             'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
-             
-             'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
-             'dob'=>$request['dob']?$request['dob']:$record->dob,
-             'city'=>$request['city']?$request['city']:$record->city,
-             'state'=>$request['state']?$request['state']:$record->state,
-             'address'=>$request['address']?$request['address']:$record->address,
-             'pin'=>$request['pin']?$request['pin']:$record->pin,
-             'gender'=>$request['gender'],
-             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
+            
              'stream_id'=>$request['stream_name_id'],
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
+           ]);
+     $msg = "Details updated successfully";
+  return redirect()->back()->with('msg',$msg);
+  
 
+  }
+    
 
+  
+    
+  
 
-            
-
-             
-            
-        ]);
-        }
      
-          $msg = "Details updated successfully";
+          
        
           
        
@@ -331,10 +349,13 @@ public function updateUserDetails(Request $request,$id){
        
 
       
-      return redirect()->back()->with('msg',$msg);
+      
+    
+    
 
-    }
 
   
+
+
 
 }

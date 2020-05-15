@@ -80,7 +80,7 @@
                           @enderror
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream Type</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream Type<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                            <select id="stream_type_id" class="form-control col-md-7 col-xs-12" name="stream_type_id">
                                <option selected disabled value="">Choose Stream Type</option>
@@ -93,7 +93,7 @@
                         </div>
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select class</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select class <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                          <select id="class_id" name="class_id" class="form-control col-md-7 col-xs-12">
                           <option selected disabled value="">Choose Class</option>
@@ -104,7 +104,7 @@
                         </div>
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Stream<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                            <select id="stream_name_id" name="stream_name_id" class="form-control col-md-7 col-xs-12">
                                 <option selected disabled value="">Choose Stream Name</option>
@@ -156,7 +156,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">Image<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">Image<span></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="file" id="file"  class="form-control col-md-7 col-xs-12" autocomplete="off" name="file">
@@ -166,7 +166,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div id="gender" class="btn-group" data-toggle="buttons">
                             <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
@@ -212,7 +212,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button class="btn btn-primary" type="reset">Reset</button>
+                          
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>

@@ -93,9 +93,8 @@
                       <li><a href="{{route('admin.show_create_account_form')}}">Register Student</a></li>
                         <li><a href="{{route('admin.list_all_students')}}">List Students</a></li>
                     </ul>
-                   
-                    
-                
+                  </li>
+                 <li><a href="{{route('admin.show_change_password_form')}}"><i class="fa fa-edit"></i>Change Admin Password</a>
                   </li>
                     <ul class="nav child_menu">
                       <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>

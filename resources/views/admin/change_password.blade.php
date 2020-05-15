@@ -1,89 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('admin.template.master')
 
-    <title>Pavakiakademy | Admin Update Password</title>
+@section('content')
 
-    <!-- Bootstrap -->
-    <link href="{{ asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{ asset('admin/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{ asset('admin/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="{{ asset('admin/vendors/animate.css/animate.min.css') }}" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('admin/build/css/custom.min.css') }}" rel="stylesheet">
-  </head>
-
-  <body class="login">
-    <div>
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form action="{{route('admin.update_password')}}" method="POST" autocomplete="off">
-                @csrf
-              <h1>Update Admin Password</h1>
-              <center>
-                <b>
-                @if (session()->has('msg'))
-               {{ session()->get('msg') }}
-                    
-                @endif
-                </b>
-            </center>
-
-              <div>
-                <input type="email" class="form-control form-text-element" placeholder="Email" value="{{ old('email') }}"  name="email"/>
-               
+ <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+             <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  @if(session()->has('msg'))
+                    <div class="alert alert-success" role="alert">
+                      {{ session()->get('msg') }}
+                    </div>
+                   @endif
+                </div>
               </div>
-               @error('email')
-                  <span style="color: red; font-weight: bold">{{ $message }}</span>
-                @enderror
-              <div>
-                <input type="password" class="form-control form-text-element" placeholder="old Password" value="{{ old('password') }}" name="old_password" >
-                 
-              </div>
-              @error('old_password')
-                   <span style="color: red; font-weight: bold">{{ $message }}</span>
-                @enderror
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Update Admin Account Password </h2>
+                    {{-- <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li> --}}
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{route('admin.update_password')}}" enctype="multipart/form-data">
+                      @csrf
+                      <div class="well" style="overflow: auto">
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                         
+                          <input type="email" class="form-control form-text-element"  value="{{ old('email') }}"  class="form-control col-md-7 col-xs-12" name="email"/>
+                         @error('email')
+                          <span style="color: red; font-weight: bold">{{ $message }}</span>
+                        @enderror
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="old_password">Old Password <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          
+                          <input type="password" class="form-control col-md-7 col-xs-12"  value="{{ old('password') }}" name="old_password" >
+                           @error('old_password')
+                             <span style="color: red; font-weight: bold">{{ $message }}</span>
+                          @enderror
+                        </div>
+                      </div>
+                     
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="new_password">New Password <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          
 
+                          <input type="password" class="form-control col-md-7 col-xs-12"  value="{{ old('password') }}" name="new_password" >
+                          @error('new_password')
+                            <span style="color: red; font-weight: bold">{{ $message }}</span>
+                          @enderror
+                        </div>
+                      </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="retype_new_password">Retype New Password <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="password" class="form-control col-md-7 col-xs-12"  value="{{ old('password') }}" name="retype_new_password" >
+                          @error('retype_new_password')
+                            <span style="color: red; font-weight: bold">{{ $message }}</span>
+                          @enderror
+                        </div>
+                      </div>
+                      
+                        </div>
+                      </div>
+                     <div class="ln_solid"></div>
+                        <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" name="submit" class="btn btn-primary">Update Password</button>
+                          </div>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
 
-              <div>
-                <input type="password" class="form-control form-text-element" placeholder="New Password" value="{{ old('password') }}" name="new_password" >
-                
-              </div>
-               @error('new_password')
-                   <span style="color: red; font-weight: bold">{{ $message }}</span>
-                @enderror
-              <div>
-                <input type="password" class="form-control form-text-element" placeholder="Confirm New Password" value="{{ old('password') }}" name="retype_new_password" >
-               
-              </div>
-                @error('retype_new_password')
-                  <span style="color: red; font-weight: bold">{{ $message }}</span>
-                @enderror
-              <div>
-                <button type="submit" class="btn btn-default submit form-text-element">Update Password</button>
-              </div>
-              <h5><a href="{{route('admin.login')}}">Back To Login</a></h5>
-              <div class="clearfix"></div>
-       
-              <div class="separator">
-
-                <div class="clearfix"></div>
-                <br />
-              </div>
-            </form>
-          </section>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+@endsection

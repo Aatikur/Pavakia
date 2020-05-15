@@ -8,12 +8,13 @@ Route::get('/admin/logout', 'Admin\AdminLoginController@logout')->name('admin.lo
 
 Route::post('/admin/login', 'Admin\AdminLoginController@adminLogin');
 Route::post('/register/admin', 'Admin\AdminRegisterController@createAdmin');
-Route::get('/admin/change_password','Admin\AdminLoginController@changePasswordForm')->name('admin.show_change_password_form');
-Route::post('/admin/password_changed','Admin\AdminLoginController@updatePassword')->name('admin.update_password');
+
 
     
 
 Route::group(['middleware'=>'auth:admin','prefix'=>'admin','namespace'=>'Admin'],function(){
+  Route::get('/admin/change_password','AdminDashboardController@changePasswordForm')->name('admin.show_change_password_form');
+  Route::post('/admin/password_changed','AdminDashboardController@updatePassword')->name('admin.update_password');
     Route::get('dashboard', 'AdminDashboardController@index')->name('admin.dashboard');
     Route::group(['namespace'=>'StudentClass'],function(){
     	  Route::get('list-streams','StudentClassController@listStreams')->name('admin.list_streams');
@@ -70,6 +71,7 @@ Route::group(['middleware'=>'auth:admin','prefix'=>'admin','namespace'=>'Admin']
     Route::group(['namespace'=>'Account'],function(){
 
       Route::get('show-create-account-form','AccountController@showCreateAccountForm')->name('admin.show_create_account_form');
+      Route::get('view-all-details/{id}','AccountController@showAllDetails')->name('admin.view_all_details');
       Route::post('create-account','AccountController@createAccount')->name('admin.create_account');
 
       Route::get('list-all-students','AccountController@ListAllStudents')->name('admin.list_all_students');
