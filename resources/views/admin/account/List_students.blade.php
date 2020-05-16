@@ -111,9 +111,8 @@
 
 
 $(document).ready(function() {
-    $('#datatable').DataTable({
-      "order":[[3,'desc']]
-    });
+
+    $('#datatable').DataTable();
 } );
 </script>
 @endsection

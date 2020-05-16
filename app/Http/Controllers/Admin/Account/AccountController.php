@@ -164,6 +164,7 @@ class AccountController extends Controller
                         ->leftjoin('class','users.class_id','=','class.id')
                         ->leftjoin('stream_type','users.stream_id','=','stream_type.id')
                         ->select('users.*','class.class_name','stream_type.stream')
+                        ->orderBy('id','desc')
                         ->get();
     return view('admin.account.List_students',compact('student_list'));
   }
@@ -285,7 +286,12 @@ public function updateUserDetails(Request $request,$id){
    $record=DB::table('users')->where('id',$id)->first();
    $count = DB::table('users')->where('mobile',$request['mobile'])->count();
    
-   if($request->hasFile('file')){
+   
+   if($record->mobile==$request['mobile'] or $request['mobile']==null)
+   {
+   
+    if($request['stream_type_id']==2){
+       if($request->hasFile('file')){
             File::delete(public_path('admin/profile/'.$record->image));
     }
    
@@ -298,9 +304,6 @@ public function updateUserDetails(Request $request,$id){
             $img->save($destinationPath.'/'.$file);
 
   }
-   if($record->mobile==$request['mobile'] or $request['mobile']==null)
-   {
-    if($request['stream_type_id']==2){
    $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
@@ -318,6 +321,19 @@ public function updateUserDetails(Request $request,$id){
            ]);
  }
  else{
+  if($request->hasFile('file')){
+            File::delete(public_path('admin/profile/'.$record->image));
+    }
+   
+   if($request->hasFile('file')) {
+   
+            $image = $request->file('file');
+            $file = microtime().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/admin/profile');
+            $img = Image::make($image->getRealPath());
+            $img->save($destinationPath.'/'.$file);
+
+  }
    $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
@@ -343,7 +359,21 @@ public function updateUserDetails(Request $request,$id){
     $msg = 'mobile already registered with other account';
   }
   else{
+    
     if($request['stream_type_id']==2){
+      if($request->hasFile('file')){
+            File::delete(public_path('admin/profile/'.$record->image));
+    }
+   
+   if($request->hasFile('file')) {
+   
+            $image = $request->file('file');
+            $file = microtime().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/admin/profile');
+            $img = Image::make($image->getRealPath());
+            $img->save($destinationPath.'/'.$file);
+
+  }
    $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
@@ -361,6 +391,19 @@ public function updateUserDetails(Request $request,$id){
            ]);
  }
  else{
+  if($request->hasFile('file')){
+            File::delete(public_path('admin/profile/'.$record->image));
+    }
+   
+   if($request->hasFile('file')) {
+   
+            $image = $request->file('file');
+            $file = microtime().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/admin/profile');
+            $img = Image::make($image->getRealPath());
+            $img->save($destinationPath.'/'.$file);
+
+  }
    $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
@@ -383,35 +426,7 @@ public function updateUserDetails(Request $request,$id){
    }
  
  
-  //   if($request->hasFile('file')){
-  //           File::delete(public_path('admin/profile/'.$record->image));
-  //   }
-   
-  //  if($request->hasFile('file')) {
-   
-  //           $image = $request->file('file');
-  //           $file = microtime().'.'.$image->getClientOriginalExtension();
-  //           $destinationPath = public_path('/admin/profile');
-  //           $img = Image::make($image->getRealPath());
-  //           $img->save($destinationPath.'/'.$file);
-
-  // }
-     // $user = DB::table('users')->where('id',$id)->update([
-     //         'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
-             
-     //         'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
-     //         'dob'=>$request['dob']?$request['dob']:$record->dob,
-     //         'city'=>$request['city']?$request['city']:$record->city,
-     //         'state'=>$request['state']?$request['state']:$record->state,
-     //         'address'=>$request['address']?$request['address']:$record->address,
-     //         'pin'=>$request['pin']?$request['pin']:$record->pin,
-     //         'gender'=>$request['gender'],
-            
-     //         'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
-     //         'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
-     //         'image'=>$file?$file:$record->image,
-     //       ]);
-     // $msg = "Details updated successfully";
+  
  }
   return redirect()->back()->with('msg',$msg);
   
