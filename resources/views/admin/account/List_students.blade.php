@@ -56,6 +56,7 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
+                          <th>ID</th>
                           <th>Name</th>
                           <th>Email</th>
                           <th>Stream</th>
@@ -68,6 +69,7 @@
                       <tbody>
                          @foreach($student_list as $item=>$value)
                         <tr>
+                          <td>{{$value->id}}</td>
                           <td>{{$value->name}}</td>
                           <td>{{$value->email}}</td>
                           @if($value->stream!=null)
@@ -109,7 +111,9 @@
 
 
 $(document).ready(function() {
-    $('#datatable').DataTable();
+    $('#datatable').DataTable({
+      "order":[[3,'desc']]
+    });
 } );
 </script>
 @endsection

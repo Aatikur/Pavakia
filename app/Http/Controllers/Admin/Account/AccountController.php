@@ -283,25 +283,9 @@ public function updateUserDetails(Request $request,$id){
    $file='';
    
    $record=DB::table('users')->where('id',$id)->first();
-   $count = DB::table('users')->where('mobile',$request['mobile'])->get();
-   if($record->mobile==$request['mobile'])
-   {
-    DB::table('users')
-    ->where('id',$id)
-    ->update(['mobile'=>$request['mobile']
-   ]);
- }
- else{
-
-  if($count>0){
-    $msg = 'mobile already registered with other account';
-  }
-  else{
-     $user = DB::table('users')->where('id',$id)->update(['mobile'=>$request['mobile']]);
-   }
- }
- 
-    if($request->hasFile('file')){
+   $count = DB::table('users')->where('mobile',$request['mobile'])->count();
+   
+   if($request->hasFile('file')){
             File::delete(public_path('admin/profile/'.$record->image));
     }
    
@@ -314,7 +298,27 @@ public function updateUserDetails(Request $request,$id){
             $img->save($destinationPath.'/'.$file);
 
   }
-     $user = DB::table('users')->where('id',$id)->update([
+   if($record->mobile==$request['mobile'] or $request['mobile']==null)
+   {
+    if($request['stream_type_id']==2){
+   $user = DB::table('users')->where('id',$id)->update([
+             'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
+             
+             'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
+             'dob'=>$request['dob']?$request['dob']:$record->dob,
+             'city'=>$request['city']?$request['city']:$record->city,
+             'state'=>$request['state']?$request['state']:$record->state,
+             'address'=>$request['address']?$request['address']:$record->address,
+             'pin'=>$request['pin']?$request['pin']:$record->pin,
+             'gender'=>$request['gender'],
+            
+             'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
+             'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
+             'image'=>$file?$file:$record->image,
+           ]);
+ }
+ else{
+   $user = DB::table('users')->where('id',$id)->update([
              'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
              
              'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
@@ -329,7 +333,86 @@ public function updateUserDetails(Request $request,$id){
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
            ]);
+
+ }
      $msg = "Details updated successfully";
+ }
+ else{
+
+  if($count>0){
+    $msg = 'mobile already registered with other account';
+  }
+  else{
+    if($request['stream_type_id']==2){
+   $user = DB::table('users')->where('id',$id)->update([
+             'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
+             
+             'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
+             'dob'=>$request['dob']?$request['dob']:$record->dob,
+             'city'=>$request['city']?$request['city']:$record->city,
+             'state'=>$request['state']?$request['state']:$record->state,
+             'address'=>$request['address']?$request['address']:$record->address,
+             'pin'=>$request['pin']?$request['pin']:$record->pin,
+             'gender'=>$request['gender'],
+            
+             'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
+             'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
+             'image'=>$file?$file:$record->image,
+           ]);
+ }
+ else{
+   $user = DB::table('users')->where('id',$id)->update([
+             'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
+             
+             'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
+             'dob'=>$request['dob']?$request['dob']:$record->dob,
+             'city'=>$request['city']?$request['city']:$record->city,
+             'state'=>$request['state']?$request['state']:$record->state,
+             'address'=>$request['address']?$request['address']:$record->address,
+             'pin'=>$request['pin']?$request['pin']:$record->pin,
+             'gender'=>$request['gender'],
+            
+             'stream_id'=>$request['stream_name_id'],
+             'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
+             'image'=>$file?$file:$record->image,
+           ]);
+
+ }
+     $msg = "Details updated successfully";
+     
+   }
+ 
+ 
+  //   if($request->hasFile('file')){
+  //           File::delete(public_path('admin/profile/'.$record->image));
+  //   }
+   
+  //  if($request->hasFile('file')) {
+   
+  //           $image = $request->file('file');
+  //           $file = microtime().'.'.$image->getClientOriginalExtension();
+  //           $destinationPath = public_path('/admin/profile');
+  //           $img = Image::make($image->getRealPath());
+  //           $img->save($destinationPath.'/'.$file);
+
+  // }
+     // $user = DB::table('users')->where('id',$id)->update([
+     //         'name' => ucwords(strtolower($request['full_name']))?ucwords(strtolower($request['full_name'])):$record->name,
+             
+     //         'class_id'=>$request['class_id']?$request['class_id']:$record->class_id,
+     //         'dob'=>$request['dob']?$request['dob']:$record->dob,
+     //         'city'=>$request['city']?$request['city']:$record->city,
+     //         'state'=>$request['state']?$request['state']:$record->state,
+     //         'address'=>$request['address']?$request['address']:$record->address,
+     //         'pin'=>$request['pin']?$request['pin']:$record->pin,
+     //         'gender'=>$request['gender'],
+            
+     //         'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
+     //         'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
+     //         'image'=>$file?$file:$record->image,
+     //       ]);
+     // $msg = "Details updated successfully";
+ }
   return redirect()->back()->with('msg',$msg);
   
 
