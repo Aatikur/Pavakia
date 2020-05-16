@@ -170,7 +170,7 @@
                             <input type="radio" name="gender" checked value="male"> &nbsp; Male &nbsp;
                              <input type="radio" name="gender" value="female"> &nbsp; Female &nbsp;
                             @else
-                            <input type="radio" name="gender" selected value="female">&nbsp; Female &nbsp;
+                            <input type="radio" name="gender" checked value="female">&nbsp; Female &nbsp;
                             <input type="radio" name="male"  value="male"> &nbsp; Male &nbsp;
                             @endif  
                               @error('gender')
