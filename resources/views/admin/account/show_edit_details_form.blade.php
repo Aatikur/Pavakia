@@ -61,7 +61,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">Phone No <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="mobile"  class="form-control col-md-7 col-xs-12"  value={{$user_record->mobile}} name="mobile">
+                          <input type="number" id="mobile"  class="form-control col-md-7 col-xs-12"  value="{{$user_record->mobile}}" name="mobile">
                         </div>
                          @error('mobile')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>
@@ -171,7 +171,7 @@
                              <input type="radio" name="gender" value="female"> &nbsp; Female &nbsp;
                             @else
                             <input type="radio" name="gender" checked value="female">&nbsp; Female &nbsp;
-                            <input type="radio" name="male"  value="male"> &nbsp; Male &nbsp;
+                            <input type="radio" name="gender"  value="male"> &nbsp; Male &nbsp;
                             @endif  
                               @error('gender')
                                 <span style="color: red; font-weight: bold">{{ $message }}</span>

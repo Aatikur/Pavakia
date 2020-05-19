@@ -35,7 +35,7 @@ class AdminDashboardController extends Controller
       $count = DB::table('admin')->where('email',$request['email'])->first();
       if(!empty($count)){
           $entered_password = $count->password;
-             if(Hash::check(Input::get('old_password'),$entered_password)){
+             if(Hash::check($request->input('old_password'),$entered_password)){
                 $admin =  DB::table('admin')->where('email',$request['email'])->update([
                   'password' => Hash::make($request['new_password']),
       ]);

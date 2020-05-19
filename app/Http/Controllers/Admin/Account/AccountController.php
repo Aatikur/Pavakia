@@ -314,7 +314,7 @@ public function updateUserDetails(Request $request,$id){
              'address'=>$request['address']?$request['address']:$record->address,
              'pin'=>$request['pin']?$request['pin']:$record->pin,
              'gender'=>$request['gender'],
-            
+             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
              'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
@@ -344,7 +344,7 @@ public function updateUserDetails(Request $request,$id){
              'address'=>$request['address']?$request['address']:$record->address,
              'pin'=>$request['pin']?$request['pin']:$record->pin,
              'gender'=>$request['gender'],
-            
+             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
              'stream_id'=>$request['stream_name_id'],
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
@@ -384,7 +384,7 @@ public function updateUserDetails(Request $request,$id){
              'address'=>$request['address']?$request['address']:$record->address,
              'pin'=>$request['pin']?$request['pin']:$record->pin,
              'gender'=>$request['gender'],
-            
+             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
              'stream_id'=>$request['stream_name_id']?$request['stream_name_id']:$record->stream_id,
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
@@ -414,7 +414,7 @@ public function updateUserDetails(Request $request,$id){
              'address'=>$request['address']?$request['address']:$record->address,
              'pin'=>$request['pin']?$request['pin']:$record->pin,
              'gender'=>$request['gender'],
-            
+             'mobile'=>$request['mobile']?$request['mobile']:$record->mobile,
              'stream_id'=>$request['stream_name_id'],
              'stream_type'=>$request['stream_type_id']?$request['stream_type_id']:$record->stream_type,
              'image'=>$file?$file:$record->image,
